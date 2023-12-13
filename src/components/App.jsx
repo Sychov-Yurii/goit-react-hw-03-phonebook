@@ -1,4 +1,3 @@
-// App.jsx
 import React, { Component } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
@@ -24,7 +23,7 @@ class App extends Component {
   }
 
   handleAddContact = newContact => {
-    const { contacts, number } = this.state;
+    const { contacts } = this.state;
     const isNameExist = contacts.some(
       contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
     );
@@ -35,7 +34,7 @@ class App extends Component {
     }
 
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, { ...newContact, number }],
+      contacts: [...prevState.contacts, newContact],
     }));
   };
 
@@ -52,15 +51,13 @@ class App extends Component {
   getFilteredContacts = () => {
     const { contacts, filter } = this.state;
     return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter)
+      contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
   render() {
-    const { filter, contacts } = this.state;
-    const filteredContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
+    const { filter } = this.state;
+    const filteredContacts = this.getFilteredContacts();
 
     return (
       <div>
