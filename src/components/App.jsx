@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
+import { nanoid } from 'nanoid';
 
 class App extends Component {
   state = {
@@ -33,8 +34,9 @@ class App extends Component {
       return;
     }
 
+    const contactWithId = { ...newContact, id: nanoid() }; // Генерація унікального id
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
+      contacts: [...prevState.contacts, contactWithId],
     }));
   };
 
